@@ -1,8 +1,5 @@
 const addGuildDocument = require("../../functions/addGuildDocument");
-const fetchData = require("../../config.js").fetchData;
 const guildModel = require("../../schemas/guild");
-
-const selfPromo = fetchData.get("messages").selfPromo;
 
 module.exports = async (client, message) => {
     if (message.author.bot) return;                                                 // Ignore bots
