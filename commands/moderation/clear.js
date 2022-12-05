@@ -21,25 +21,24 @@ module.exports = {
             message.reply({ content: "ok", ephemeral: true });
         } else {
             if (!message.member.permissions.has(ManageMessages)) {
-                return client.errorStrings.PERMISSION_ERROR;
+                return message.channel.send("You don't the required permissions to use this command.");
             }
         }
 
         const amount = +args[0];
 
-        if (isNaN(amount)) return "Please provide a number as the first argument.";
-
-        if (amount <= 0) return "Number must be at least 1.";
+        if (isNaN(amount)) return message.channel.send("Please provide a number as the first argument.");
+        if (amount <= 0) return message.channel.send("Number must be at least 1.");
 
         let deletedMessagesCount = slash ? 0 : -1;
-        while (deletedMessagesCount < amount) {
-            const deleteThisTime = Math.min(...[100, amount - deletedMessagesCount]);
-            const deletedMessages = await message.channel.bulkDelete(deleteThisTime, true)
+        while (100 < amount) {
+            const deletedMessages = await message.channel.bulkDelete(amount > 100? 100:amount, true)
                 .catch(err => message.channel.send("An error occurred."));
             if (!deletedMessages || deletedMessages.size === 0) break;
+            amount -= deletedMessages.size;
             deletedMessagesCount += deletedMessages.size;
         }
-
+        
         if (deletedMessagesCount === 0) {
             message.channel.send("I can't delete messages which are older than two weeks.");
         }
