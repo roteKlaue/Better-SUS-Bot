@@ -12,14 +12,11 @@
     "url": "git+https://github.com/plastik-flasche/SUS-Bot.git"
   },
   "keywords": [],
-  "authors": [
-    "roteKlaue"
-  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/plastik-flasche/SUS-Bot/issues"
+    "url": "https://github.com/roteKlaue/Better-SUS-Bot/issues"
   },
-  "homepage": "https://github.com/plastik-flasche/SUS-Bot#readme",
+  "homepage": "https://github.com/roteKlaue/Better-SUS-Bot#readme",
   "dependencies": {
     "@discordjs/voice": "^0.13.0",
     "@parade/pretty-ms": "^6.0.3",

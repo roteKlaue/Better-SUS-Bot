@@ -5,7 +5,7 @@ module.exports = async (image, level) => {
 
     image = await jimp.read(image);
 
-    image.blur(isNaN(level) ? 5 : parseInt(level));
+    image.blur(isNaN(level) ? 5 : +(level));
 
     let raw;
 

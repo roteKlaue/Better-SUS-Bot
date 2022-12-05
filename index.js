@@ -19,7 +19,6 @@ client.player = new Player(client);
 client.commands = new Collection();
 client.config = require("./config");
 client.connection = connection;
-client.functions = require("./functions/getFiles")("./functions", "functions.js");
 
 module.exports = client;
 
