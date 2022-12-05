@@ -1,5 +1,3 @@
-const fetchData = require("./fetchDataFromSave.js");
-
 module.exports = (message, guildData) => {
     if (!guildData?.channels?.allowed) return true;
     if (Array.isArray(guildData.channels.allowed)) {

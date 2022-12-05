@@ -28,6 +28,7 @@ module.exports = {
             }
         }
 
+        if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");
         const channel = getChannelFromMention(message.guild, args[0]);
         if (!channel) return message.channel.send("Please specify the channel you want to unlock");
 

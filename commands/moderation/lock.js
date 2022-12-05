@@ -29,11 +29,12 @@ module.exports = {
             }
         }
 
+        if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");
         const channel = getChannelFromMention(message.guild, args[0]);
         if (!channel) return "Please specify the channel you want to lock";
 
         if (!channel.permissionsFor(message.guild.roles.everyone).has(SendMessages))
-            return "Channel is already locked";
+            return message.channel.send("Channel is already locked");
 
         channel.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false });
 

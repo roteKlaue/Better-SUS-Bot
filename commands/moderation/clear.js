@@ -25,13 +25,13 @@ module.exports = {
             }
         }
 
-        const amount = +args[0];
+        let amount = +args[0];
 
         if (isNaN(amount)) return message.channel.send("Please provide a number as the first argument.");
         if (amount <= 0) return message.channel.send("Number must be at least 1.");
 
-        let deletedMessagesCount = slash ? 0 : -1;
-        while (100 < amount) {
+        let deletedMessagesCount = 0;
+        while (0 != amount) {
             const deletedMessages = await message.channel.bulkDelete(amount > 100? 100:amount, true)
                 .catch(err => message.channel.send("An error occurred."));
             if (!deletedMessages || deletedMessages.size === 0) break;
@@ -39,9 +39,8 @@ module.exports = {
             deletedMessagesCount += deletedMessages.size;
         }
         
-        if (deletedMessagesCount === 0) {
+        if (deletedMessagesCount === 0) 
             message.channel.send("I can't delete messages which are older than two weeks.");
-        }
 
         message.channel.send(`Deleted ${deletedMessagesCount} messages from <#${message.channel.id}>`).then(msg => setTimeout(() => msg.delete(), 5000));
     }
