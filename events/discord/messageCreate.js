@@ -20,10 +20,14 @@ module.exports = async (client, message) => {
     if (!message.content.startsWith(prefix)) return;                                // Ignore messages that don't start with the prefix
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);          // Get the arguments
-    const command = args.shift().toLowerCase();                               // Get the cmd name
-    const cmd = client.commands.get(command) ||                           // Get the cmd from the commands collection
+    const command = args.shift().toLowerCase();                                     // Get the cmd name
+    const cmd = client.commands.get(command) ||                                     // Get the cmd from the commands collection
         client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     if (!cmd) return;
+
+    if (cmd.permissions?.length && !message.member.permissions.has(cmd.permissions)) {
+        return message.channel.send("You don't the required permissions to use this command.");
+    }
 
     cmd.run(client, message, args, guildData);
 }
