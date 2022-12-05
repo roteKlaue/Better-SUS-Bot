@@ -31,10 +31,5 @@ module.exports = async (client, message) => {
         client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     if (!cmd) return;
 
-    let returnString = cmd.run(client, message, args, guildData);
-    if (returnString instanceof Promise) returnString = await returnString;
-    if (typeof returnString === 'string' && returnString !== "") message.channel.send(returnString);
-
-    if (Random.randomInt(0, 9) === 0)                                               // 1/10 chance to send a self-promo message                         
-        message.channel.send(selfPromo[Random.randomInt(0, selfPromo.length - 1)]); // Shameless self-promotion
+    cmd.run(client, message, args, guildData);
 }
