@@ -1,5 +1,4 @@
 const addGuildDocument = require("../../functions/addGuildDocument");
-const { Random } = require("sussyutilbyraphaelbader");
 const fetchData = require("../../config.js").fetchData;
 const guildModel = require("../../schemas/guild");
 
@@ -16,8 +15,6 @@ module.exports = async (client, message) => {
     const counter = require("../../functions/counter.js");
     if (counter(message, guildData)) return;                                        // Check if the message is in the counter channel, if so, run the counter function
 
-    const leonDetector = require("../../functions/leonDetector.js");
-    if (leonDetector(message)) message.channel.send("Halts maul");                  // We do a lil trolling
     const isBotChannel = require("../../functions/checkChannelID.js");
     if (!isBotChannel(message, guildData)) return;                                  // Ignore messages not in allowed channels
 
