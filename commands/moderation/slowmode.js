@@ -29,20 +29,20 @@ module.exports = {
         } else {
             if (!message.member.permissions.has(ManageChannels)) {
                 message.delete();
-                return client.errorStrings.PERMISSION_ERROR;
+                return message.channel.send("You don't the required permissions to use this command.");
             }
         }
 
         const channel = client.channels.cache.get(args[0].substring(2, args[0].length - 1));
-        if (channel === undefined) return "Please specify the channel you want to set the slowmode of.";
+        if (!channel) return "Please specify the channel you want to set the slowmode of.";
 
-        if (args[1] === undefined) {
+        if (!args[1]) {
             channel.setRateLimitPerUser(0);
-            return `The slowmode of ${channel.toString()} was removed.`;
+            return message.channel.send(`The slowmode of ${channel.toString()} was removed.`);
         }
 
         if (!IsSomething.isNumber(args[1] + "")) return message.channel.send("Please enter a number for the slowmode.");
         channel.setRateLimitPerUser(+args[1]);
-        return message.channel.send(`The slowmode of ${channel.toString()} was set to ${args[1]}seconds.`);
+        message.channel.send(`The slowmode of ${channel.toString()} was set to ${args[1]}seconds.`);
     }
 }

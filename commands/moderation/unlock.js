@@ -24,16 +24,15 @@ module.exports = {
             message.reply({ content: "ok", ephemeral: true });
         } else {
             if (!message.member.permissions.has(ManageChannels)) {
-                message.delete();
-                return client.errorStrings.PERMISSION_ERROR;
+                return message.channel.send("You don't the required permissions to use this command.");
             }
         }
 
         const channel = getChannelFromMention(message.guild, args[0]);
-        if (channel === undefined) return "Please specify the channel you want to unlock";
+        if (!channel) return message.channel.send("Please specify the channel you want to unlock");
 
         if (channel.permissionsFor(message.guild.roles.everyone).has(SendMessages))
-            return "Channel isn't locked";
+            return message.channel.send("Channel isn't locked");
 
         channel.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: true });
 

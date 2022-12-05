@@ -27,22 +27,18 @@ module.exports = {
             .setTitle("Help panel")
             .setFooter(client.config.embedFooter(client));
 
-        if (!commandName || commandName.length === 0) {
-            embed
-                .setDescription(`To see more information type **${client.config.prefix}help {command name}**`);
-
-            fs.readdirSync(`${__dirname}/../`).forEach((d) => {
-                embed.addFields({
+        if (!commandName || !commandName.length) {
+            embed.setDescription(`To see more information type **${client.config.prefix}help {command name}**`)
+                .addFields(...fs.readdirSync(`${__dirname}/../`).map((d) => ({
                     name: StringUtil.capitalize(d),
                     value: client.commands.filter(x => x.category == d).map((x) => "`" + x.name + "`").join(", ")
-                })
-            });;
+                })));
         } else {
             const cmd = client.commands.get(commandName) ||
                 client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
             if (!cmd) {
-                return "No command found for: `" + commandName + "`";
+                return message.channel.send(`No command found for: \`${commandName}\``);
             }
 
             // TODO: Add more information

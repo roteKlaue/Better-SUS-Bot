@@ -35,16 +35,16 @@ module.exports = {
         const mentionedMember = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         const nickName = args.slice(1).join(" ");
 
-        if (!args[0]) return "You did not mention a user for me to change their nickname!";
-        if (!mentionedMember) return "Please mention a user for me to change their nickname \`$nickname @user nickname\`";
-        if (!nickName) return "Please provide a nickname for me to change this users nickname";
+        if (!args[0]) return message.channel.send("You did not mention a user for me to change their nickname!");
+        if (!mentionedMember) return message.channel.send("Please mention a user for me to change their nickname \`$nickname @user nickname\`");
+        if (!nickName) return message.channel.send("Please provide a nickname for me to change this users nickname");
 
         try {
             const username = mentionedMember.nickname || mentionedMember.user.username;
             await mentionedMember.setNickname(nickName);
-            return `Set nickname of ${username} to ${nickName}.`;
+            message.channel.send(`Set nickname of ${username} to ${nickName}.`);
         } catch (err) {
-            return `I do not have the required permissions to to set ${mentionedMember.nickname || mentionedMember.user.username}"s username.`;
+            message.channel.send(`I do not have the required permissions to to set ${mentionedMember.nickname || mentionedMember.user.username}"s username.`);
         }
     }
 }

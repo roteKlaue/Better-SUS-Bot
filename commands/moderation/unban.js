@@ -23,11 +23,11 @@ module.exports = {
             message.reply({ content: "ok", ephemeral: true });
         } else {
             if (!message.member.permissions.has(BanMembers)) {
-                return client.errorStrings.PERMISSION_ERROR;
+                return message.channel.send("You don't the required permissions to use this command.");
             }
         }
 
-        if (args[0] === undefined)
+        if (!args[0])
             return "Please Give Me Member ID That You Want To Unban!";
 
         const bans = await message.guild.bans.fetch();
