@@ -1,0 +1,6 @@
+.env
+node_modules
+*.env
+# .censitive
+package-lock.json
+.vscode
