@@ -5,6 +5,6 @@ module.exports = {
 
     run(client, message, args, a, slash) {
         if (slash) message.reply("ok");
-        return client.player.pause(message);
+        client.player.pause(message);
     }
 }

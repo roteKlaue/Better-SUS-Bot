@@ -16,6 +16,6 @@ module.exports = {
             message.reply("ok");
         }
 
-        return client.player.addTrack(message, args);
+        client.player.addTrack(message, args);
     }
 }

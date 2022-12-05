@@ -8,16 +8,14 @@ module.exports = {
             message.reply({ content: "ok", ephemeral: true });
         }
 
-        if (client.player.getQueue(message.guild.id) === undefined) {
-            return "There is no queue";
-        }
+        const queue = client.player.getQueue(message.guild.id)
 
-        const current = client.player.getCurrent(message.guild.id);
+        if (!queue) 
+            return message.channel.send("There is no queue");
 
-        if (current === undefined) {
-            return "Currently not playing anything";
-        }
+        if (!queue.current) 
+            return message.channel.send("Currently not playing anything");
 
-        return `Now Playing: **${current.title}**\n`;
+        message.channel.send(`Now Playing: **${current.title}**\n`);
     }
 }

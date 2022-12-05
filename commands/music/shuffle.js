@@ -7,6 +7,6 @@ module.exports = {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         }
-        return client.player.shuffle(message);
+        client.player.shuffle(message);
     }
 }

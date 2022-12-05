@@ -9,18 +9,9 @@ module.exports = {
 
         const playerInfo = client.player.getQueue(message.guild.id);
 
-        if (playerInfo === undefined) {
-            return "There are no songs in the queue";
-        }
+        if (!playerInfo) 
+            return message.channel.send("There are no songs in the queue");
 
-        let currentString = `Current: **${playerInfo.current.title}**\n`;
-        let queueString = "";
-
-        for (let i = 0; i < playerInfo.queue.length; i++) {
-            const track = playerInfo.queue[i];
-            queueString += `${i + 1}. **${track.title}**\n`;
-        }
-
-        return (currentString + queueString);
+        message.channel.send(`Current: **${playerInfo.current.title}**\n` + playerInfo.queue.join((e,i) => `${i + 1}. **${e.title}**\n`));
     }
 }

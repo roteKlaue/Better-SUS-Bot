@@ -8,6 +8,6 @@ module.exports = {
             message.reply({ content: "ok", ephemeral: true });
         }
 
-        return client.player.stop(message);
+        client.player.stop(message);
     }
 }
