@@ -18,6 +18,7 @@ module.exports = {
     ],
 
     default_member_permissions: ManageChannel,
+    permissions: [ ManageChannels ],
 
     run: async (client, message, args, guildInfo, slash) => {
         if (slash) {

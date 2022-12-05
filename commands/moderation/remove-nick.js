@@ -16,6 +16,7 @@ module.exports = {
     ],
 
     default_member_permissions: mngNick,
+    permissions: [ ManageNicknames ],
 
     async run(client, message, args, a, slash) {
         if (slash) {

@@ -1,6 +1,7 @@
 const { IsSomething } = require("sussyutilbyraphaelbader");
 const { ManageChannels } = require("../../enums/permissionBitField");
 const { ManageChannels: ManageChannel } = require("../../enums/permissionStrings");
+const getChannelFromMention = require("../../functions/getChannelFromMention");
 
 module.exports = {
     name: "slowmode",
@@ -22,19 +23,18 @@ module.exports = {
     ],
 
     default_member_permissions: ManageChannel,
+    permissions: [ ManageChannels ],
 
     run(client, message, args, a, slash) {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         } else {
-            if (!message.member.permissions.has(ManageChannels)) {
-                message.delete();
-                return message.channel.send("You don't the required permissions to use this command.");
-            }
+            message.delete();
         }
 
-        const channel = client.channels.cache.get(args[0].substring(2, args[0].length - 1));
-        if (!channel) return "Please specify the channel you want to set the slowmode of.";
+        if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");
+        const channel = getChannelFromMention(message.guild, args[0]);
+        if (!channel) return message.channel.send("Please specify the channel you want to set the slowmode of.");
 
         if (!args[1]) {
             channel.setRateLimitPerUser(0);

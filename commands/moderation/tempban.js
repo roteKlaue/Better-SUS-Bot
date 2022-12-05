@@ -23,6 +23,7 @@ module.exports = {
     ],
 
     default_member_permissions: banMbs,
+    permissions: [ BanMembers ],
 
     run: (client, message, args, guildInfo, slash) => {
         if (slash) {

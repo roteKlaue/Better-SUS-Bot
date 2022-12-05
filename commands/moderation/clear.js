@@ -15,6 +15,7 @@ module.exports = {
     ],
 
     default_member_permissions: manageMsgs,
+    permissions: [ ManageMessages ],
 
     run: async (client, message, args, a, slash) => {
         if (slash) {

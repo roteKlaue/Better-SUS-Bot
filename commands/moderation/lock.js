@@ -18,6 +18,7 @@ module.exports = {
     ],
 
     default_member_permissions: ManageChannel,
+    permissions: [ ManageChannels ],
 
     run(client, message, args, a, slash) {
         if (slash) {

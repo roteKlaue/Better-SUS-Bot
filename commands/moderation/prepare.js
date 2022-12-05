@@ -1,3 +1,5 @@
+const { ManageGuild } = require("../../enums/permissionBitField");
+const { ManageGuild: mngGuild } = require("../../enums/permissionStrings");
 const { MessageEmbed } = require("discord.js");
 
 const registering = (client, second) => {
@@ -23,6 +25,9 @@ const registering = (client, second) => {
 module.exports = {
     name: "prepare",
     description: "Creates slash commands in server",
+    
+    default_member_permissions: mngGuild,
+    permissions: [ ManageGuild ],
 
     async run(client, message, args, a, slash) {
         const embed = registering(client, message);
