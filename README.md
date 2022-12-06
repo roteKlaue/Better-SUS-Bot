@@ -1,6 +1,6 @@
 # Better-SUS-Bot
 
-Better-SUS-Bot is a Bot made to rewrite all the mistakes made in [SUS-Bot](https://github.com/plastic-flasche/SUS-bot) by [Plastik-Flasche](https://github.com/plastik-flasche) like 
+Better-SUS-Bot is a Bot made to rewrite all the mistakes made in [SUS-Bot](https://github.com/plastik-flasche/SUS-bot) by [Plastik-Flasche](https://github.com/plastik-flasche) like 
 ```js 
 if(variable === undefined)
 ```
