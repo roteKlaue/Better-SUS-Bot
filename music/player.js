@@ -102,7 +102,7 @@ module.exports = class Player {
         } else {
             const yt_infos = await search(args.join(" ").trim(), { limit: 10 });
             for(let i = 0; i < yt_infos.length; i++) {
-                url = yt_infos[currentInfo].url;
+                url = yt_infos[i].url;
                 if(!isAgeRestricted(url)) break;
             }
         }

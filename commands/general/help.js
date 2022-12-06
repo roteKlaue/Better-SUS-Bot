@@ -64,6 +64,11 @@ module.exports = {
                     value: cmd.aliases?.length > 0 ? cmd.aliases.join(", ") : "None",
                     inline: true
                 },
+                {
+                    name: "Cooldown",
+                    value: cmd.cooldown? `${cmd.cooldown}seconds`: "None",
+                    inline: true
+                }
             );
         }
 
