@@ -29,7 +29,7 @@ module.exports = {
     default_member_permissions: mngGuild,
     permissions: [ ManageGuild ],
 
-    async run(client, message, args, a, slash) {
+    async run(client, message, args, a, b, slash) {
         const embed = registering(client, message);
         if (slash) message.reply({ embeds: [embed] });
         else message.channel.send({ embeds: [embed] });

@@ -18,7 +18,7 @@ module.exports = {
     default_member_permissions: mngNick,
     permissions: [ ManageNicknames ],
 
-    async run(client, message, args, a, slash) {
+    async run(client, message, args, a, b, slash) {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         }

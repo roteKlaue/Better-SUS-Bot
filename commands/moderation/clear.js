@@ -17,7 +17,7 @@ module.exports = {
     default_member_permissions: manageMsgs,
     permissions: [ ManageMessages ],
 
-    run: async (client, message, args, a, slash) => {
+    run: async (client, message, args, a, b, slash) => {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         }

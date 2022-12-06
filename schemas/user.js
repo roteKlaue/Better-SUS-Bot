@@ -5,7 +5,7 @@ const guildSchema = new Schema({
     userid:{ require: true, type:String },
 
     level: {
-        xp: Number,
+        xp: { type:Number, default: 0 },
         level: { type:Number, default: 0 },
     },
 

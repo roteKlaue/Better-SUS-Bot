@@ -1,5 +1,7 @@
 const addGuildDocument = require("../../functions/addGuildDocument");
+const addUserDocument = require("../../functions/addUserDocument");
 const guildModel = require("../../schemas/guild");
+const userModel = require("../../schemas/user");
 
 module.exports = async (client, message) => {
     if (message.author.bot) return;                                                 // Ignore bots
@@ -8,6 +10,12 @@ module.exports = async (client, message) => {
         addGuildDocument(message.guild);
         guildData = await guildModel.findOne({ guildId: message.guild.id });
     }
+
+    let userData = await userModel.findOne({ userid: message.author.id });
+	if(!userData) {
+		addUserDocument(message.author);
+		userData = await userModel.findOne({ userId: message.author.id });
+	}
 
     const counter = require("../../functions/counter.js");
     if (counter(message, guildData)) return;                                        // Check if the message is in the counter channel, if so, run the counter function
@@ -29,5 +37,5 @@ module.exports = async (client, message) => {
         return message.channel.send("You don't the required permissions to use this command.");
     }
 
-    cmd.run(client, message, args, guildData);
+    cmd.run(client, message, args, guildData, userData);
 }

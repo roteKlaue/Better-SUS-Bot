@@ -17,7 +17,7 @@ module.exports = {
     default_member_permissions: banMbs,
     permissions: [ BanMembers ],
 
-    run: async (client, message, args, guildInfo, slash) => {
+    run: async (client, message, args, guildInfo, a, slash) => {
         message.delete();
 
         if (slash) {

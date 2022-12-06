@@ -7,7 +7,7 @@ module.exports = {
     default_member_permissions: createInv,
     permissions: [ CreateInstantInvite ],
 
-    run: async (client, message, args, a, slash) => {
+    run: async (client, message, args, a, b, slash) => {
         if (slash) {
             message.reply({ content: "Here you go: ", ephemeral: true });
         }

@@ -25,7 +25,7 @@ module.exports = {
     default_member_permissions: banMbs,
     permissions: [ BanMembers ],
 
-    run: (client, message, args, guildInfo, slash) => {
+    run: (client, message, args, guildInfo, a, slash) => {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         }
