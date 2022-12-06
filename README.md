@@ -86,7 +86,7 @@ P.P.S. The prefix for the hosted Version is `!`
 
 ### Economy
 
-- [ ] `beg` - beg for money
+- [x] `beg` - beg for money
 - [ ] `bal` - shows your current balance
 - [ ] `dep` - deposit money from your wallet into your bank
 - [ ] `withdraw` - withdraw money from your bank
