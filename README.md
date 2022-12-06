@@ -88,6 +88,6 @@ P.P.S. The prefix for the hosted Version is `!`
 
 - [x] `beg` - beg for money
 - [x] `bal` - shows your current balance
-- [ ] `dep` - deposit money from your wallet into your bank
+- [x] `dep` - deposit money from your wallet into your bank
 - [ ] `withdraw` - withdraw money from your bank
 - [ ] `coinflip` - guess heads or tails and bet some money then flip a coin to either loos all that money or double it
