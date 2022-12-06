@@ -83,3 +83,7 @@ P.P.S. The prefix for the hosted Version is `!`
 - [x] `loop` - Loops the Queue
 - [x] `shuffle` - Shuffles the Queue
 - [x] `clear-queue` - Clears the Queue
+
+### Economy
+
+- [ ]
