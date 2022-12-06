@@ -20,7 +20,7 @@ module.exports = {
             if(+args[0] > current.bank) return message.channel.send("You do not have enough money to withdraw " + args[0] + "$.");
             current.bank -= +args[0];
             current.wallet += +args[0];
-            moneys = +args[0];    
+            moneys = +args[0];
         }
 
         users.findByIdAndUpdate(userInfo._id, { economy: current }, (err, data) => { });
