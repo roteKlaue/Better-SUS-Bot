@@ -20,10 +20,6 @@ module.exports = {
     run: async (client, message, args, a, slash) => {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
-        } else {
-            if (!message.member.permissions.has(ManageMessages)) {
-                return message.channel.send("You don't the required permissions to use this command.");
-            }
         }
 
         let amount = +args[0];

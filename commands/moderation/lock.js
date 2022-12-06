@@ -23,11 +23,6 @@ module.exports = {
     run(client, message, args, a, slash) {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
-        } else {
-            if (!message.member.permissions.has(ManageChannels)) {
-                message.delete();
-                return client.errorStrings.PERMISSION_ERROR;
-            }
         }
 
         if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");

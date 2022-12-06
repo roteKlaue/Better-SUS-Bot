@@ -21,10 +21,6 @@ module.exports = {
     async run(client, message, args, a, slash) {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
-        } else {
-            if (!message.member.permissions.has(ManageNicknames)) {
-                return "You don't the required permissions to use this command.";
-            }
         }
 
         const mentionedMember = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
