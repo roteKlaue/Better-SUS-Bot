@@ -19,5 +19,28 @@ module.exports = async (client, interaction) => {
 		addUserDocument(interaction.user);
 		userData = await userModel.findOne({ userId: interaction.user.id });
 	}
-	if (cmd) cmd.run(client, interaction, interaction.options._hoistedOptions.map(e => e.value), guildData, userData, true);
+	if (!cmd) return;
+	
+	if(!client.cooldowns.has(cmd.name)) {
+        client.cooldowns.set(cmd.name, new Collection());
+    }
+
+	if(cmd.cooldown) {
+        const current = Date.now();
+        const time_stamps = cool_downs.get(cmd.name);
+        const cooldownTime = (cmd.cooldown) * 1000;
+    
+        if(time_stamps.has(interaction.author.id)) {
+            const expiration_time = time_stamps.get(interaction.author.id) + cooldownTime;
+            if(current < expiration_time) {
+                const time_left = (expiration_time - current) / 1000;
+                return interaction.reply(`Please wait ${time_left.toFixed(1)} more seconds before using this command.`);
+            }
+        }
+
+		time_stamps.set(interaction.author.id, current);
+        setTimeout(() => time_stamps.delete(interaction.author.id), cooldownTime);
+    }
+
+	cmd.run(client, interaction, interaction.options._hoistedOptions.map(e => e.value), guildData, userData, true);
 }

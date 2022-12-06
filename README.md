@@ -46,7 +46,7 @@ P.P.S. The prefix for the hosted Version is `!`
 ### General
 
 - [ ] `help` - Shows the Help Page
-- [ ] `info` - Shows some Information about the Bot
+- [x] `info` - Shows some Information about the Bot
 - [x] `invite` - Creates an Invite Link for the Server
 - [x] `inviteBot` - Shows the Invite Link for the Bot
 - [x] `serverinfo` - Shows some information about the server
@@ -64,8 +64,8 @@ P.P.S. The prefix for the hosted Version is `!`
 - [x] `set-goodbye-channel` - Sets the goodbye channel
 - [x] `set-welcome-channel` - Sets the welcome channel
 - [x] `slowmode` - Sets the Slowmode of a Channel
-- [ ] `tempban` - Temporarily Bans a Member
 - [x] `unban` - Unbans a Member
+- [ ] `tempban` - Temporarily Bans a Member
 - [ ] `warn` - Warns a Member
 - [ ] `warnings` - Shows the Warnings of a Member
 - [ ] `removeWarning` - Removes a Warning from a Member
@@ -87,7 +87,7 @@ P.P.S. The prefix for the hosted Version is `!`
 ### Economy
 
 - [x] `beg` - beg for money
-- [ ] `bal` - shows your current balance
+- [x] `bal` - shows your current balance
 - [ ] `dep` - deposit money from your wallet into your bank
 - [ ] `withdraw` - withdraw money from your bank
 - [ ] `coinflip` - guess heads or tails and bet some money then flip a coin to either loos all that money or double it

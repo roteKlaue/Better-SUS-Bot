@@ -2,6 +2,7 @@ const addGuildDocument = require("../../functions/addGuildDocument");
 const addUserDocument = require("../../functions/addUserDocument");
 const guildModel = require("../../schemas/guild");
 const userModel = require("../../schemas/user");
+const { Collection } = require("discord.js");
 
 module.exports = async (client, message) => {
     if (message.author.bot) return;                                                 // Ignore bots
@@ -33,6 +34,27 @@ module.exports = async (client, message) => {
         client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     if (!cmd) return;
 
+    if(!client.cooldowns.has(cmd.name)) {
+        client.cooldowns.set(cmd.name, new Collection());
+    }
+
+    if(cmd.cooldown) {
+        const current = Date.now();
+        const time_stamps = client.cooldowns.get(cmd.name);
+        const cooldownTime = (cmd.cooldown) * 1000;
+    
+        if(time_stamps.has(message.author.id)) {
+            const expiration_time = time_stamps.get(message.author.id) + cooldownTime;
+            if(current < expiration_time) {
+                const time_left = (expiration_time - current) / 1000;
+                return message.reply(`Please wait ${time_left.toFixed(1)} more seconds before using this command.`);
+            }
+        }
+
+        time_stamps.set(message.author.id, current);
+        setTimeout(() => time_stamps.delete(message.author.id), cooldownTime);
+    }
+    
     if (cmd.permissions?.length && !message.member.permissions.has(cmd.permissions)) {
         return message.channel.send("You don't the required permissions to use this command.");
     }

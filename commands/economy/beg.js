@@ -3,7 +3,7 @@ const users = require("../../schemas/user");
 
 module.exports = {
     name: "beg",
-    description: "beg for money.",
+    description: "Beg for money",
     cooldown: 30,
 
     run: (client, message, args, guildInfo, userInfo, slash) => {

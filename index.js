@@ -19,6 +19,7 @@ client.player = new Player(client);
 client.commands = new Collection();
 client.config = require("./config");
 client.connection = connection;
+client.cooldowns = new Collection();
 
 module.exports = client;
 
