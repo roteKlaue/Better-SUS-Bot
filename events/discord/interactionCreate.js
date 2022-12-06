@@ -2,6 +2,7 @@ const addGuildDocument = require("../../functions/addGuildDocument");
 const addUserDocument = require("../../functions/addUserDocument");
 const guildModel = require("../../schemas/guild");
 const userModel = require("../../schemas/user");
+const { Collection } = require("discord.js");
 
 module.exports = async (client, interaction) => {
 	if (!interaction.isCommand()) return;
@@ -27,7 +28,7 @@ module.exports = async (client, interaction) => {
 
 	if(cmd.cooldown) {
         const current = Date.now();
-        const time_stamps = cool_downs.get(cmd.name);
+        const time_stamps = client.cooldowns.get(cmd.name);
         const cooldownTime = (cmd.cooldown) * 1000;
     
         if(time_stamps.has(interaction.author.id)) {

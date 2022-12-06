@@ -1,8 +1,9 @@
 const { Client, Collection, Intents } = require("discord.js");
-const { connect, connection } = require("mongoose");
+const { connect, connection, set } = require("mongoose");
 const Player = require("./music/player");
 const fs = require("fs");
 require("dotenv").config();
+// set('strictQuery', false);
 
 /* Create a new client instance */
 const client = new Client({
