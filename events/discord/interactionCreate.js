@@ -20,7 +20,7 @@ module.exports = async (client, interaction) => {
 		addUserDocument(interaction.user);
 		userData = await userModel.findOne({ userId: interaction.user.id });
 	}
-	if (!cmd) return;
+	if (!cmd) return interaction.reply({ ephemeral: true, content: "Command not found." });
 	
 	if(!client.cooldowns.has(cmd.name)) {
         client.cooldowns.set(cmd.name, new Collection());

@@ -16,7 +16,7 @@ module.exports = {
                 { name: "Username", value: user.username, inline: true },
                 { name: "ID", value: user.id, inline: true },
                 { name: "Discriminator", value: user.discriminator, inline: true },
-                { name: "Bot", value: `${user.bot? "bot": "user"}`, inline: true },
+                { name: "Bot", value: `${user.bot? "Yes": "No"}`, inline: true },
                 { name: "Verified", value: user.verified? "Yes" : "No", inline: true },
                 { name: "Created", value: user.createdAt.toDateString(), inline: true },
                 { name: "Joined", value: new Date(message.guild.members.cache.get(user.id).joinedTimestamp).toDateString(), inline: true },

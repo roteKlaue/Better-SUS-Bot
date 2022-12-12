@@ -4,7 +4,7 @@ const users = require("../../schemas/user");
 module.exports = {
     name: "withdraw",
     description: "withdraw money from the bank",
-    
+
     run: async (client, message, args, guildInfo, userInfo, slash) => {
         if(slash) message.reply({ content: "ok", ephemeral: true });
         if(!args[0]) return message.channel.send("Please provide the amount you want to deposit.");
