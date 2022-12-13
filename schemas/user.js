@@ -14,8 +14,8 @@ const guildSchema = new Schema({
         type: {
             lastUsed: { type:Date },
             job: { 
-                name: { type: String, required: true },
-                description: { type: String, required: true },
+                name: { type: String, required: false },
+                description: { type: String, required: false },
                 reuse: {
                     type: Number,
                     default: 30,
