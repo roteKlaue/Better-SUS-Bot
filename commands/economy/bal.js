@@ -1,12 +1,20 @@
+const { MessageEmbed } = require("discord.js")
+
 module.exports = {
     name: "bal",
     description: "Look at your balance",
 
-    run: (client, message, args, guildInfo, userInfo, slash) => {
-        if (slash) {
-            message.reply({ content: "Here you go: ", ephemeral: true });
-        }
-        
-        message.channel.send(`Wallet: ${userInfo.economy.wallet}\nBank: ${userInfo.economy.bank}`)
+    run: (_client, message, _args, _guildInfo, userInfo) => {
+        message.reply(
+            { embeds: [
+                new MessageEmbed()
+                    .setTitle(`${message.author.tag}'s Balance`)
+                    .addFields(
+                        { name:`Wallet:`, value:`${userInfo.economy.wallet}$`}, 
+                        { name:`Bank:`, value:`${userInfo.economy.bank}$` }
+                    )
+                ]
+            }
+        )
     }
 }

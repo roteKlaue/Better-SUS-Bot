@@ -20,7 +20,7 @@ module.exports = {
     default_member_permissions: ManageChannel,
     permissions: [ ManageChannels ],
 
-    run(client, message, args, guildInfo, a, slash) {
+    run(client, message, args, _guildInfo, _a, _b,slash) {
         if (slash) {
             message.reply({ content: "ok", ephemeral: true });
         }

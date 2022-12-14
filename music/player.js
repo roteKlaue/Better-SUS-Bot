@@ -1,12 +1,10 @@
 const { createAudioPlayer, createAudioResource, joinVoiceChannel, entersState, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus } = require("@discordjs/voice");
 const { stream: AudioStream, video_basic_info, search, yt_validate } = require("play-dl");
 const { ImprovedArray } = require("sussyutilbyraphaelbader");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Collection } = require("discord.js");
 
 module.exports = class Player {
-    // TODO: CHANGE VARIABLE NAME FROM QUEUE TO QUEUES
-
-    #queue = new Map();
+    #queue = new Collection();
     #client;
 
     constructor(client) {
@@ -103,7 +101,7 @@ module.exports = class Player {
             const yt_infos = await search(args.join(" ").trim(), { limit: 10 });
             for(let i = 0; i < yt_infos.length; i++) {
                 url = yt_infos[i].url;
-                if(!isAgeRestricted(url)) break;
+                if(!this.#isAgeRestricted(url)) break;
             }
         }
 
@@ -297,13 +295,13 @@ module.exports = class Player {
             return message.channel.send("The track is already playing");
         }
     }
-};
 
-const isAgeRestricted = async (url) => {
-    try {
-        (await video_basic_info(url)).video_details;
-    } catch (err) {
-        return true;
+    async #isAgeRestricted(url) {
+        try {
+            (await video_basic_info(url)).video_details;
+        } catch (err) {
+            return true;
+        }
+        return false;
     }
-    return false;
-}
+};

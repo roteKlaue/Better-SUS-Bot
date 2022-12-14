@@ -33,6 +33,7 @@ module.exports = async (client, message) => {
     const cmd = client.commands.get(command) ||                                     // Get the cmd from the commands collection
         client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     if (!cmd) return;
+    message.followUp = message.reply;
 
     if(!client.cooldowns.has(cmd.name)) {
         client.cooldowns.set(cmd.name, new Collection());
