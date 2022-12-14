@@ -8,10 +8,10 @@ module.exports = {
 
     run(_client, message, _args, _guildData, userData) {
         message.reply("Do you really want to reset your profile?");
-        const collector = message.channel.createMessageCollector({filter:msg => msg.author.id === message.author.id, time: 30000 });
+        const collector = message.channel.createMessageCollector({ filter: msg => msg.author.id === message.author.id, time: 30000 });
 
         collector.on("collect", async msg => {
-            switch(msg.content.toLowerCase()) {
+            switch (msg.content.toLowerCase()) {
                 case "yes":
                 case "ok":
                     userData.economy.wallet = 0;
@@ -30,9 +30,9 @@ module.exports = {
         });
 
         collector.on("end", (_ignore, error) => {
-            if(error && error !== 'success') {
-                return message.followUp({ embeds: [ new MessageEmbed().setTitle("Timed Out").setColor("red") ] });
-            }   
+            if (error && error !== 'success') {
+                return message.followUp({ embeds: [new MessageEmbed().setTitle("Timed Out").setColor("RED")] });
+            }
             collector.stop("success");
         });
     }
