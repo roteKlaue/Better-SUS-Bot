@@ -91,4 +91,4 @@ P.P.S. The prefix for the hosted Version is `!`
 - [x] `dep` - deposit money from your wallet into the bank
 - [x] `withdraw` - withdraw money from the bank
 - [x] `seach` - search for money
-- [x] `coinflip` - guess heads or tails and bet some money then flip a coin to either loos all that money or double it
+- [x] `coinflip` - guess heads or tails and bet some money then flip a coin to either loose all that money or double it
