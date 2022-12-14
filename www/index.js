@@ -12,7 +12,7 @@ for (const file of files) {
 }
 
 app.get("/", (req, res) => {
-    res.send(fs.readFileSync(`${__dirname}\\static\\main_page.html`, "utf-8"));
+    res.send(fs.readFileSync(`${__dirname}\\static\\index.html`, "utf-8"));
 });
 
 module.exports = {

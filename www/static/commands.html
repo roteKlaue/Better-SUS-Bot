@@ -119,14 +119,14 @@
 
     <script>
         axios.get('../logo').then(e => document.querySelector("#logo").src = e.data).catch(e => console.log(e));
-        axios.get('http://localhost/commands/allcommands').then(e => {
+        axios.get(`${window.location.href}/allcommands`).then(e => {
             const commands = e.data;
             console.log(commands)
             const content = document.querySelector(".content");
             commands.forEach(cmd => {
                 const command = document.createElement("a");
                 command.setAttribute("id", cmd.name);
-                command.href = "http://localhost/commands/" + cmd.name;
+                command.href = `${window.location.href}/` + cmd.name;
                 command.classList.add("command");
                 const nameSpan = document.createElement("span");
                 nameSpan.id = "name" + cmd.name;
