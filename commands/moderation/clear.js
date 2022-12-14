@@ -35,7 +35,7 @@ module.exports = {
         if (deletedMessagesCount === 0) 
             return message.reply("I can't delete messages which are older than two weeks.");
 
-        message.reply(`Deleted ${deletedMessagesCount} messages from <#${message.channel.id}>`).then(msg => {
+        message.reply({ content:`Deleted ${deletedMessagesCount} messages from <#${message.channel.id}>`, ephemeral:true }).then(msg => {
             setTimeout(() => {try{msg.delete()} catch(e) {}}, 5000);
         });
     }
