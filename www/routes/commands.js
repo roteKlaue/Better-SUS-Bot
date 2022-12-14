@@ -16,7 +16,7 @@ router.get("/:cmdname", (req, res) => {
     const command = client.commands.find(cmd1 => cmd1.name === cmd);
     if(!command) return res.status(404).send("");
     const clone = deepClone(command);
-    clone.permissions.forEach((e, i) => {
+    clone.permissions?.forEach((e, i) => {
         for (const key in permissions) {
             if(BigInt(permissions[key]) != e)
                 continue;
