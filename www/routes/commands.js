@@ -2,14 +2,8 @@ const permissions = require("../../enums/permissionStrings");
 const { deepClone, removeProperty } = require("sussyutilbyraphaelbader");
 const client = require("../../index");
 const express = require("express");
-const fs = require("fs");
-
 
 const router = express.Router();
-
-router.get("/", (req, res) => {
-    res.send(fs.readFileSync(`${__dirname}\\..\\static\\commands.html`, "utf-8"));
-});
 
 router.get("/allcommands", (req, res) => {
     const commandName = [];
