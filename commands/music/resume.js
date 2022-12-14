@@ -3,8 +3,7 @@ module.exports = {
     aliases: ["unpause"],
     description: "Resumes playing",
 
-    run(client, message, args, a, b, slash) {
-        if (slash) message.reply("ok");
+    run(client, message) {
         client.player.resume(message);
     }
 }

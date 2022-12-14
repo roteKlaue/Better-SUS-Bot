@@ -16,11 +16,7 @@ module.exports = {
         }
     ],
 
-    run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run(client, message, args) {
         const commandName = args[0];
         const embed = new MessageEmbed()
             .setTimestamp(new Date())
@@ -38,7 +34,7 @@ module.exports = {
                 client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
             if (!cmd) {
-                return message.channel.send(`No command found for: \`${commandName}\``);
+                return message.reply(`No command found for: \`${commandName}\``);
             }
 
             // TODO: Add more information
@@ -72,6 +68,6 @@ module.exports = {
             );
         }
 
-        message.channel.send({ embeds: [embed] });
+        message.reply({ embeds: [embed] });
     }
 }

@@ -4,11 +4,7 @@ module.exports = {
     name: "uptime",
     description: "Shows the uptime of the bot",
 
-    run: async (client, message, args, a, b, slash) => {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run: async (client, message) => {
         const days = Math.floor(client.uptime / 86400000);
         const hours = Math.floor(client.uptime / 3600000) % 24;
         const minutes = Math.floor(client.uptime / 60000) % 60;
@@ -21,6 +17,6 @@ module.exports = {
                 { name: "**Stunden:**", value: `${hours}` },
                 { name: "**Minuten:**", value: `${minutes}` },
                 { name: "**Sekunden:**", value: `${seconds}` });
-        message.channel.send({ embeds: [uptime] });
+        message.reply({ embeds: [uptime] });
     }
 }

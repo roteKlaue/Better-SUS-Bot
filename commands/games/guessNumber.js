@@ -23,28 +23,24 @@ module.exports = {
     name: "guess",
     description: "Guess a number from 1 - 20000",
 
-    run(client, message, args, guildData, userData, slash) {
-        if(slash) {
-            return message.send("ok");
-        }
-
+    run(_client, message, args) {
         guildNumberMap(message);
         guildAttemptsMap(message);
 
-        const { member, channel, guild } = message;
+        const { member, guild } = message;
         const number = guildNumber.get(guild.id);
-        if(!args[0]) return channel.send("Please enter a number from 1 - 20000.");
+        if(!args[0]) return message.reply("Please enter a number from 1 - 20000.");
         const guess = +args[0];
 
-        if(isNaN(guess)) return channel.send("Please enter a number"); 
+        if(isNaN(guess)) return message.reply("Please enter a number"); 
 
         if(guess === number) {
             const attempts = guildAttempts.get(guild.id);
             guildNumber.delete(guild.id);
             guildAttempts.delete(guild.id);
-            return channel.send(`✅ Perfect, <@${member.id}> the number was ${number}, it only took you ${attempts.attempts} attempts!`);
+            return message.reply(`✅ Perfect, <@${member.id}> the number was ${number}, it only took you ${attempts.attempts} attempts!`);
         }
 
-        channel.send(`${guess} Is too ${guess < number? "low":"high"}`);
+        message.reply(`${guess} Is too ${guess < number? "low":"high"}`);
     }
 }

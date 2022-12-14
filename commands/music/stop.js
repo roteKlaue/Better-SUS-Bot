@@ -3,11 +3,7 @@ module.exports = {
     description: "Stops the music and clears the queue",
     aliases: ["disconnect", "leave"],
 
-    run: async (client, message, args, a, b, slash) => {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run: async (client, message) => {
         client.player.stop(message);
     }
 }

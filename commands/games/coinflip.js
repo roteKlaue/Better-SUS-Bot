@@ -20,28 +20,27 @@ module.exports = {
         }
     ],
 
-    run(client, message, args, guildInfo, userInfo, slash) {
-        if(slash) return message.reply("ok");        
-        if(args[0] !== "head" && args[0] !== "tail") return message.channel.send(`Please provide head or tail and the amount you want to bet \`${client.config.prefix}coinflip [head|tail] {amount}\``);
+    run(client, message, args, _guildInfo, userInfo) {
+        if(args[0] !== "head" && args[0] !== "tail") return message.reply(`Please provide head or tail and the amount you want to bet \`${client.config.prefix}coinflip [head|tail] {amount}\``);
         const res = Math.random() > 0.5? "head": "tail";
         
         if(!args[1] || +args[1] <= 0) {
-            return message.channel.send(`The coin landed on ${res}. You ${res === args[0]? "won": "lost"}.`);
+            return message.reply(`The coin landed on ${res}. You ${res === args[0]? "won": "lost"}.`);
         }
 
-        if(!IsSomething.isNumber(args[1])) return message.channel.send("Please provide a number as the second argument.");
-        if(+args[1] > userInfo.economy.wallet) return message.channel.send("You don't have enough money in your wallet.");
+        if(!IsSomething.isNumber(args[1])) return message.reply("Please provide a number as the second argument.");
+        if(+args[1] > userInfo.economy.wallet) return message.reply("You don't have enough money in your wallet.");
 
         const current = userInfo.economy;
 
         if(args[0] === res) {
             current.wallet += +args[1] * .5;
-            users.findByIdAndUpdate(userInfo._id, { economy: current }, (err, data) => { });
-            return message.channel.send(`The coin landed on ${res}. You won ${+args[1] * .5}$.`);
+            users.findByIdAndUpdate(userInfo._id, { economy: current }, (_err, _data) => { });
+            return message.reply(`The coin landed on ${res}. You won ${+args[1] * .5}$.`);
         }
 
         current.wallet -= +args[1];
-        users.findByIdAndUpdate(userInfo._id, { economy: current }, (err, data) => { });
-        message.channel.send(`The coin landed on ${res}. You lost ${args[1]}$.`);
+        users.findByIdAndUpdate(userInfo._id, { economy: current }, (_err, _data) => { });
+        message.reply(`The coin landed on ${res}. You lost ${args[1]}$.`);
     }
 }

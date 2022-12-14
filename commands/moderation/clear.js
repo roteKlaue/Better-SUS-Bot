@@ -17,15 +17,11 @@ module.exports = {
     default_member_permissions: manageMsgs,
     permissions: [ ManageMessages ],
 
-    run: async (client, message, args, a, b, slash) => {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run: async (_client, message, args) => {
         let amount = +args[0];
 
-        if (isNaN(amount)) return message.channel.send("Please provide a number as the first argument.");
-        if (amount <= 0) return message.channel.send("Number must be at least 1.");
+        if (isNaN(amount)) return message.reply("Please provide a number as the first argument.");
+        if (amount <= 0) return message.reply("Number must be at least 1.");
 
         let deletedMessagesCount = 0;
         while (0 != amount) {
@@ -37,8 +33,8 @@ module.exports = {
         }
         
         if (deletedMessagesCount === 0) 
-            message.channel.send("I can't delete messages which are older than two weeks.");
+            return message.reply("I can't delete messages which are older than two weeks.");
 
-        message.channel.send(`Deleted ${deletedMessagesCount} messages from <#${message.channel.id}>`).then(msg => setTimeout(() => msg.delete(), 5000));
+        message.reply(`Deleted ${deletedMessagesCount} messages from <#${message.channel.id}>`).then(msg => setTimeout(() => msg.delete(), 5000));
     }
 }

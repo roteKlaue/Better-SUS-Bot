@@ -20,17 +20,14 @@ module.exports = {
     default_member_permissions: ManageChannel,
     permissions: [ ManageChannels ],
 
-    run: async (client, message, args, guildInfo, a, slash) => {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run: async (_client, message, args) => {
+        if(!args[0]) return message.reply("Please mention the channel you want to set as counter channel.");
         const channel = getChannelFromMention(message.guild, args[0]);
-        if (!channel) return message.channel.send("Please specify the counter channel.");
+        if (!channel) return message.reply("Please specify the counter channel.");
         const current = guildInfo.channels;
         current.counter = channel.id;
 
         guilds.findByIdAndUpdate(guildInfo._id, { channels: current }, (err, data) => { });
-        message.channel.send(`Set counter channel to ${channel.toString()}`);
+        message.reply(`Set counter channel to ${channel.toString()}`);
     }
 }

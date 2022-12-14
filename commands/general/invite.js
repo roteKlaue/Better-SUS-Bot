@@ -7,11 +7,8 @@ module.exports = {
     default_member_permissions: createInv,
     permissions: [ CreateInstantInvite ],
 
-    run: async (client, message, args, a, b, slash) => {
-        if (slash) {
-            message.reply({ content: "Here you go: ", ephemeral: true });
-        }
+    run: async (_client, message) => {
         message.channel.createInvite({ unique: true, temporary: false }).then(invite =>
-            message.channel.send({ content: "https://discord.gg/" + invite.code }));
+            message.reply({ content: "https://discord.gg/" + invite.code }));
     }
 }

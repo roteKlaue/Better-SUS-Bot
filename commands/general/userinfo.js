@@ -4,11 +4,10 @@ module.exports = {
     name: "userinfo",
     description: "displays information mentions user/author",
 
-    run(client, message, args, a, b, slash) {
-        if(slash) message.reply("ok");
+    run(client, message) {
         const user = message.mentions.users.first() || message.author;
-
-        message.channel.send({ embeds: [ new MessageEmbed()
+        
+        message.reply({ embeds: [ new MessageEmbed()
             .setTitle("**Userinfo**")
             .setColor("RANDOM")
             .setThumbnail(user.displayAvatarURL())

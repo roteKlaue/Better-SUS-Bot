@@ -20,17 +20,13 @@ module.exports = {
     default_member_permissions: ManageChannel,
     permissions: [ ManageChannels ],
 
-    run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
-        if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");
+    run(client, message, args) {
+        if(!args[0]) return message.reply("Please mention the channel you want to lockdown.");
         const channel = getChannelFromMention(message.guild, args[0]);
-        if (!channel) return "Please specify the channel you want to lock";
+        if (!channel) return message.reply("Please specify the channel you want to lock");
 
         if (!channel.permissionsFor(message.guild.roles.everyone).has(SendMessages))
-            return message.channel.send("Channel is already locked");
+            return message.reply("Channel is already locked");
 
         channel.permissionOverwrites.edit(message.guild.roles.everyone, { SEND_MESSAGES: false });
 
@@ -41,6 +37,6 @@ module.exports = {
             .setFooter(client.config.embedFooter(client))
             .setTimestamp(new Date())
 
-        message.channel.send({ embeds: [embed] });
+        message.reply({ embeds: [embed] });
     }
 }

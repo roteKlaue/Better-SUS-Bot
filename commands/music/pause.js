@@ -3,8 +3,7 @@ module.exports = {
     aliases: [],
     description: "Pauses the current song",
 
-    run(client, message, args, a, b, slash) {
-        if (slash) message.reply("ok");
+    run(client, message) {
         client.player.pause(message);
     }
 }

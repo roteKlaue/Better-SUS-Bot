@@ -11,11 +11,7 @@ module.exports = {
         }
     ],
 
-    async run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply("ok");
-        }
-
+    async run(client, message, args) {
         client.player.addTrack(message, args);
     }
 }

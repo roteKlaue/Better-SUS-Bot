@@ -4,11 +4,7 @@ module.exports = {
     name: "serverinfo",
     description: "Shows information about the server",
 
-    async run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    run(_client, message) {
         const sEmbed = new MessageEmbed()
             .setColor("DARK_BLUE")
             .setTitle("Server Info")
@@ -19,6 +15,6 @@ module.exports = {
                 { name: "***Member Count:***", value: `${message.guild.memberCount}`, inline: true })
             .setTimestamp(new Date());
 
-        message.channel.send({ embeds: [sEmbed] });
+        message.reply({ embeds: [sEmbed] });
     }
 }

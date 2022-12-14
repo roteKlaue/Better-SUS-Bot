@@ -3,10 +3,7 @@ module.exports = {
     description: "Shuffles the queue",
     aliases: ["mix"],
 
-    run: async (client, message, args, a, b, slash) => {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
+    run: async (client, message) => {
         client.player.shuffle(message);
     }
 }

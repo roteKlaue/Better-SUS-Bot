@@ -25,24 +25,18 @@ module.exports = {
     default_member_permissions: ManageChannel,
     permissions: [ ManageChannels ],
 
-    run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        } else {
-            message.delete();
-        }
-
-        if(!args[0]) return message.channel.send("Please mention the channel you want to lockdown.");
+    run(_client, message, args) {
+        if(!args[0]) return message.reply("Please mention the channel you want to lockdown.");
         const channel = getChannelFromMention(message.guild, args[0]);
-        if (!channel) return message.channel.send("Please specify the channel you want to set the slowmode of.");
+        if (!channel) return message.reply("Please specify the channel you want to set the slowmode of.");
 
         if (!args[1]) {
             channel.setRateLimitPerUser(0);
-            return message.channel.send(`The slowmode of ${channel.toString()} was removed.`);
+            return message.reply(`The slowmode of ${channel.toString()} was removed.`);
         }
 
-        if (!IsSomething.isNumber(args[1] + "")) return message.channel.send("Please enter a number for the slowmode.");
+        if (!IsSomething.isNumber(args[1] + "")) return message.reply("Please enter a number for the slowmode.");
         channel.setRateLimitPerUser(+args[1]);
-        message.channel.send(`The slowmode of ${channel.toString()} was set to ${args[1]}seconds.`);
+        message.reply(`The slowmode of ${channel.toString()} was set to ${args[1]}seconds.`);
     }
 }

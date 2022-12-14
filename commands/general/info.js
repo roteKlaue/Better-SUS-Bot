@@ -5,8 +5,8 @@ module.exports = {
     name: "info",
     description: "Displays information about the bot.",
 
-    run(client, message, args) {
-        message.channel.send({
+    run(client, message) {
+        message.reply({
             embeds: [new MessageEmbed()
                 .setColor("BLUE")
                 .setTitle(`${client.user.username} v${require("../../package.json")["version"]}`)

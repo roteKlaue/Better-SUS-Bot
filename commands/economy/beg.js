@@ -6,10 +6,7 @@ module.exports = {
     description: "Beg for money",
     cooldown: 30,
 
-    run: (client, message, args, guildInfo, userInfo, slash) => {
-        if (slash) {
-            message.reply({ content: "Here you go: ", ephemeral: true });
-        }
+    run: (_client, message, _args, _guildInfo, userInfo) => {
         const amount = Random.randomInt(200, 600);
         const current = userInfo.economy;
         current.wallet += amount;
@@ -17,6 +14,6 @@ module.exports = {
         users.findByIdAndUpdate(userInfo._id, { economy: current }, (err, data) => { });
 
         const messages = [ "A kind stranger gave you **{amount}$**.", "Here you go leave me alone. Drops **{amount}$**." ];
-        message.channel.send(messages[Math.floor(Math.random() * messages.length)].replace("{amount}", amount));
+        message.reply(messages[Math.floor(Math.random() * messages.length)].replace("{amount}", amount));
     }
 }

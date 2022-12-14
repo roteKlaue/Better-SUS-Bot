@@ -18,22 +18,18 @@ module.exports = {
     default_member_permissions: mngNick,
     permissions: [ ManageNicknames ],
 
-    async run(client, message, args, a, b, slash) {
-        if (slash) {
-            message.reply({ content: "ok", ephemeral: true });
-        }
-
+    async run(_client, message, args) {
         const mentionedMember = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
-        if (!args[0]) return message.channel.send("You did not mention a user for me to change their nickname!");
-        if (!mentionedMember) return message.channel.send("Please mention a user for me to change their nickname \`$nickname @user nickname\`");
-        if (!mentionedMember.nickname) return message.channel.send("Mentioned user does not have a nickname.");
+        if (!args[0]) return message.reply("You did not mention a user for me to change their nickname!");
+        if (!mentionedMember) return message.reply("Please mention a user for me to change their nickname \`$nickname @user nickname\`");
+        if (!mentionedMember.nickname) return message.reply("Mentioned user does not have a nickname.");
 
         try {
             await mentionedMember.setNickname(null);
-            message.channel.send(`Removed nickname of ${mentionedMember.toString()}.`);
+            message.reply(`Removed nickname of ${mentionedMember.toString()}.`);
         } catch (err) {
-            message.channel.send(`I do not have the required permissions to to set ${mentionedMember.nickname || mentionedMember.user.username} username.`);
+            message.reply(`I do not have the required permissions to to set ${mentionedMember.nickname || mentionedMember.user.username} username.`);
         }
     }
 }

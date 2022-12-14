@@ -1,10 +1,9 @@
 module.exports = {
-    name: "work",
+    // name: "work", (unfinished)
     description: "Work for money",
 
 
-    run:(client, message, args, guildInfo, userInfo, slash) => {
-        if(slash) message.reply("ok");
+    run:(_client, message, _args, _guildInfo, _userInfo) => {
         
     }
 }
