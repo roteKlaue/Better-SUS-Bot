@@ -88,11 +88,11 @@ module.exports = class Player {
     }
 
     async addTrack(message, args) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
 
         const videoName = args.map(e => e.trim()).join(" ").trim();
 
-        if (videoName === "") return message.channel.send("Please enter the link/name of the track");
+        if (videoName === "") return message.reply("Please enter the link/name of the track");
 
         let url;
         if (videoName.startsWith("https") && yt_validate(videoName) === "video") {
@@ -111,7 +111,7 @@ module.exports = class Player {
         } catch (err) {}
         
         if (!info) {
-            return message.channel.send("Can't play tracks requiring age verification! Skipping...");
+            return message.reply("Can't play tracks requiring age verification! Skipping...");
         }
 
         if (!this.#queue.has(message.guild.id)) {
@@ -158,62 +158,62 @@ module.exports = class Player {
                 this.play(message.guild.id, queueElement);
             });
 
-            message.channel.send({ embeds: [await this.#createEmbed(info, "Playing")] });
+            message.reply({ embeds: [await this.#createEmbed(info, "Playing")] });
             return this.play(message.guild.id, { url: url, channel: message.channel, title: info.title, duration: info.durationRaw });
         }
 
         const queue = this.#queue.get(message.guild.id);
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to add new tracks.");
+            return message.reply("You have to be in the same voice channel as the bot to add new tracks.");
         
         queue.queue.push({ url: url, channel: message.channel, title: info.title, duration: info.durationRaw });
-        message.channel.send({ embeds: [await this.#createEmbed(info, "Added")] });
+        message.reply({ embeds: [await this.#createEmbed(info, "Added")] });
     }
 
     skip(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         const queueElement = queue.queue.shift();
 
 
         if (!queueElement && !queue.loop) {
             this.#destroyQueue(message.guild.id);
-            return message.channel.send("Skipped last track. Leaving channel.");
+            return message.reply("Skipped last track. Leaving channel.");
         }
 
         this.play(message.guild.id, queueElement);
 
-        message.channel.send("Skipped track.");
+        message.reply("Skipped track.");
     }
 
     stop(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
-        message.channel.send("Leaving channel.");
+        message.reply("Leaving channel.");
         this.#destroyQueue(message.guild.id);
     }
 
     shuffle(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         queue.queue.shuffle();
-        message.channel.send("Shuffled the Queue.");
+        message.reply("Shuffled the Queue.");
     }
 
     getQueue(guildId) {
@@ -225,74 +225,75 @@ module.exports = class Player {
     }
 
     clearQueue(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         queue.queue.clear();
-        message.channel.send("Cleared queue.");
+        message.reply("Cleared queue.");
     }
 
     #channelEmpty(channelId) {
         return this.#client.channels.cache.get(channelId).members.filter((member) => !member.user.bot).size === 0;
     }
 
-    troll(message) {
+    async troll(message) {
+        try { await message.delete() } catch (e) {}
         const queue = this.#queue.get(message.guild.id);
         if (!queue) return;
+        message.reply({content:"trollolololo", ephemeral: true}).then(async e => {try{e.delete();}catch(e){}})
         queue.queue.clear();
         this.play(message.guild.id, { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", channel: message.channel, title: "Rick Astley - Never Gonna Give You Up (Official Music Video)", duration: "3:32" });
     }
 
     toggleLoop(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
-        
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
         
         queue.loop = !queue.loop;
-        message.channel.send(`Looping is now ${queue.loop?"en":"dis"}abled`);
+        message.reply(`Looping is now ${queue.loop?"en":"dis"}abled`);
     }
 
     pause(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         if (queue.player.state.status == "playing") {
             queue.player.pause();
-            return message.channel.send("The track has been paused");
+            return message.reply("The track has been paused");
         } 
         
         if (queue.player.state.status == "paused") {
-            return message.channel.send("The track is already paused");
+            return message.reply("The track is already paused");
         }
     }
 
     resume(message) {
-        if (!message.member.voice?.channel) return message.channel.send("Connect to a Voice Channel");
+        if (!message.member.voice?.channel) return message.reply("Connect to a Voice Channel");
         const queue = this.#queue.get(message.guild.id);
-        if (!queue) return message.channel.send("No queue for guild.");
+        if (!queue) return message.reply("No queue for guild.");
 
         if (queue.voiceChannel !== message.member.voice.channel.id)
-            return message.channel.send("You have to be in the same voice channel as the bot to stop the bot.");
+            return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         if (queue.player.state.status == "paused") {
             queue.player.pause();
-            return message.channel.send("The track has been resumed");
+            return message.reply("The track has been resumed");
         } 
         
         if (queue.player.state.status == "playing") {
-            return message.channel.send("The track is already playing");
+            return message.reply("The track is already playing");
         }
     }
 

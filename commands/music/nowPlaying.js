@@ -12,6 +12,6 @@ module.exports = {
         if (!queue.current) 
             return message.reply("Currently not playing anything");
 
-        message.reply(`Now Playing: **${current.title}**\n`);
+        message.reply(`Now Playing: **${queue.current.title}**\n`);
     }
 }
