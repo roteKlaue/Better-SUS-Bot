@@ -1,3 +1,3 @@
 module.exports = (message) => {
-    return message.author.id === "583743858865602702"; // leon detector
+    return ["769189119951372328","583743858865602702", "696838136877154364"].includes(message.author.id); // leon detector
 }

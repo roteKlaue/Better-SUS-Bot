@@ -10,7 +10,7 @@ module.exports = {
         message.reply("Do you really want to reset your profile?");
         const collector = message.channel.createMessageCollector({ filter: msg => msg.author.id === message.author.id, time: 30000 });
 
-        collector.on("collect", async msg => {
+        collector.on("collect", async (msg) => {
             switch (msg.content.toLowerCase()) {
                 case "yes":
                 case "ok":
