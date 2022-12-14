@@ -288,7 +288,7 @@ module.exports = class Player {
             return message.reply("You have to be in the same voice channel as the bot to stop the bot.");
 
         if (queue.player.state.status == "paused") {
-            queue.player.pause();
+            queue.player.unpause();
             return message.reply("The track has been resumed");
         } 
         
